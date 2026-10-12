@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Tienda Tech Express - Módulo 3 Bootstrap 4 (Javascript)</title>
+
+  <!-- Bootstrap 4 CSS desde node_modules -->
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Open Iconic CSS desde node_modules -->
+  <link rel="stylesheet" href="node_modules/open-iconic/font/css/open-iconic-bootstrap.min.css">
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Barra de navegación fija con menús desplegables (Dropdowns) y botón para abrir Modal -->
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <span class="oi oi-laptop mr-2 text-info" aria-hidden="true"></span>
+        Tech Express
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTech3" aria-controls="navbarTech3" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarTech3">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#inicio"><span class="oi oi-home mr-1"></span> Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#catalogo"><span class="oi oi-grid-three-up mr-1"></span> Catálogo</a>
+          </li>
+          
+          <!-- Menú desplegable (Dropdown) requerido -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="dropdownServicios" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="oi oi-menu mr-1"></span> Más Opciones
+            </a>
+            <div class="dropdown-menu shadow" aria-labelledby="dropdownServicios">
+              <a class="dropdown-item" href="#pestañas"><span class="oi oi-spreadsheet mr-1 text-primary"></span> Información de Compra (Pills)</a>
+              <a class="dropdown-item" href="#collapseSection"><span class="oi oi-layers mr-1 text-info"></span> Novedades (Multi-Collapse)</a>
+              <a class="dropdown-item" href="#accordionPagos"><span class="oi oi-credit-card mr-1 text-success"></span> Medios de Pago (Accordion)</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#registroModal"><span class="oi oi-person mr-1 text-warning"></span> Crear Cuenta / Registro</a>
+            </div>
+          </li>
+        </ul>
+
+        <!-- Botón que abre el componente Modal (requerido) -->
+        <button type="button" class="btn btn-outline-info btn-sm ml-md-2" data-toggle="modal" data-target="#registroModal">
+          <span class="oi oi-account-login mr-1"></span> Registrarse / Suscribirse
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container my-4" id="inicio">
+
+    <!-- Contenedor dinámico de alertas generadas por Javascript -->
+    <div id="alertContainer" class="mt-2"></div>
+
+    <!-- 1. Componente CAROUSEL en la parte superior con controles de desplazamiento e indicadores -->
+    <section class="mb-5">
+      <div id="promoCarousel" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#promoCarousel" data-slide-to="0" class="active"></li>
+          <li data-target="#promoCarousel" data-slide-to="1"></li>
+          <li data-target="#promoCarousel" data-slide-to="2"></li>
+        </ol>
+
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="img/carousel-1.svg" class="d-block w-100" alt="Lanzamiento Notebook Pro Ultra">
+          </div>
+          <div class="carousel-item">
+            <img src="img/carousel-2.svg" class="d-block w-100" alt="Monitores 4K Curvos">
+          </div>
+          <div class="carousel-item">
+            <img src="img/carousel-3.svg" class="d-block w-100" alt="Periféricos RGB y Audio Premium">
+          </div>
+        </div>
+
+        <!-- Controles de desplazamiento del carrusel -->
+        <a class="carousel-control-prev" href="#promoCarousel" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Anterior</span>
+        </a>
+        <a class="carousel-control-next" href="#promoCarousel" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Siguiente</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- 2. Tarjetas de productos con POPOVERS y TOOLTIPS en los títulos -->
+    <section id="catalogo" class="mb-5">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+          <h2 class="h3 font-weight-bold mb-1">Catálogo Destacado</h2>
+          <p class="text-muted mb-0">Pasá el cursor sobre los títulos para ver información de contexto enriquecida (Popovers).</p>
+        </div>
+        <span class="badge badge-info p-2" data-toggle="tooltip" data-placement="left" title="Precios actualizados para compras online">
+          <span class="oi oi-info mr-1"></span> Información Activa
+        </span>
+      </div>
+
+      <div class="row">
+
+        <!-- Card 1 con Popover y Tooltip -->
+        <div class="col-12 col-sm-6 col-lg-3 mb-4 d-flex align-items-stretch">
+          <div class="card w-100 d-flex flex-column">
+            <img src="img/product-laptop.svg" class="card-img-top" alt="Notebook Pro 15">
+            <div class="card-body d-flex flex-column">
+              <!-- Título con Popover -->
+              <h5 class="card-title product-popover-title" 
+                  data-toggle="popover" 
+                  data-placement="top"
+                  title="<strong>Notebook Pro 15&#34;</strong>" 
+                  data-content="• CPU: Intel i7 13th Gen<br>• RAM: 32GB DDR5<br>• Disco: 1TB NVMe<br>• Pantalla: OLED 2.8K 120Hz">
+                Notebook Pro 15" <span class="oi oi-question-mark text-primary small"></span>
+              </h5>
+              <p class="card-text text-muted">Potencia extrema para arquitectura de software y renderizado 3D.</p>
+              <div class="mt-auto">
+                <span class="badge badge-success mb-2" data-toggle="tooltip" title="Despacho en el día asegurado">
+                  <span class="oi oi-flash mr-1"></span> Envío 24hs
+                </span>
+              </div>
+            </div>
+            <div class="card-footer d-flex justify-content-between align-items-center">
+              <span class="font-weight-bold text-primary">$1,450.00</span>
+              <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#registroModal">Comprar</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 con Popover y Tooltip -->
+        <div class="col-12 col-sm-6 col-lg-3 mb-4 d-flex align-items-stretch">
+          <div class="card w-100 d-flex flex-column">
+            <img src="img/product-monitor.svg" class="card-img-top" alt="Monitor Curvo 27">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title product-popover-title" 
+                  data-toggle="popover" 
+                  data-placement="top"
+                  title="<strong>Monitor Curvo 27&#34; 4K</strong>" 
+                  data-content="• Panel: IPS 1500R<br>• Frecuencia: 144Hz<br>• Color: 99% sRGB / HDR10<br>• Conexión: USB-C 90W PD">
+                Monitor Curvo 27" <span class="oi oi-question-mark text-primary small"></span>
+              </h5>
+              <p class="card-text text-muted">Definición ultra nítida con calibración cromática para diseño y edición.</p>
+              <div class="mt-auto">
+                <span class="badge badge-success mb-2" data-toggle="tooltip" title="Garantía oficial de 2 años incluida">
+                  <span class="oi oi-shield mr-1"></span> Garantía 2 Años
+                </span>
+              </div>
+            </div>
+            <div class="card-footer d-flex justify-content-between align-items-center">
+              <span class="font-weight-bold text-primary">$490.00</span>
+              <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#registroModal">Comprar</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 con Popover y Tooltip -->
+        <div class="col-12 col-sm-6 col-lg-3 mb-4 d-flex align-items-stretch">
+          <div class="card w-100 d-flex flex-column">
+            <img src="img/product-teclado.svg" class="card-img-top" alt="Teclado Mecánico RGB">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title product-popover-title" 
+                  data-toggle="popover" 
+                  data-placement="top"
+                  title="<strong>Teclado Mecánico RGB</strong>" 
+                  data-content="• Switches: Hot-Swap Red/Blue<br>• Chasis: Aluminio aeronáutico<br>• Conectividad: Tri-Mode (BT/2.4G/USB)<br>• Teclas PBT doble inyección">
+                Teclado Mecánico RGB <span class="oi oi-question-mark text-primary small"></span>
+              </h5>
+              <p class="card-text text-muted">Respuesta táctil precisa y máxima durabilidad para programadores.</p>
+              <div class="mt-auto">
+                <span class="badge badge-warning text-dark mb-2" data-toggle="tooltip" title="Quedan menos de 10 unidades en stock">
+                  <span class="oi oi-clock mr-1"></span> Stock Crítico
+                </span>
+              </div>
+            </div>
+            <div class="card-footer d-flex justify-content-between align-items-center">
+              <span class="font-weight-bold text-primary">$120.00</span>
+              <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#registroModal">Comprar</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4 con Popover y Tooltip -->
+        <div class="col-12 col-sm-6 col-lg-3 mb-4 d-flex align-items-stretch">
+          <div class="card w-100 d-flex flex-column">
+            <img src="img/product-auriculares.svg" class="card-img-top" alt="Auriculares Wireless ANC">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title product-popover-title" 
+                  data-toggle="popover" 
+                  data-placement="top"
+                  title="<strong>Auriculares Wireless ANC</strong>" 
+                  data-content="• Cancelación: Híbrida 42dB<br>• Autonomía: 35 horas continuas<br>• Audio: Hi-Res y LDAC<br>• Micrófonos con ENC ambiental">
+                Auriculares ANC <span class="oi oi-question-mark text-primary small"></span>
+              </h5>
+              <p class="card-text text-muted">Aislamiento acústico total para sesiones de trabajo profundo y videollamadas.</p>
+              <div class="mt-auto">
+                <span class="badge badge-success mb-2" data-toggle="tooltip" title="Compatible con iOS, Windows, Mac y Android">
+                  <span class="oi oi-check mr-1"></span> Multiplataforma
+                </span>
+              </div>
+            </div>
+            <div class="card-footer d-flex justify-content-between align-items-center">
+              <span class="font-weight-bold text-primary">$180.00</span>
+              <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#registroModal">Comprar</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3. Componente TABS o PILLS responsive con tabla comparativa y opciones de compra -->
+    <section id="pestañas" class="mb-5">
+      <div class="mb-3">
+        <h3 class="h4 font-weight-bold"><span class="oi oi-browser mr-2 text-primary"></span> Información para la Compra (Pestañas Pills)</h3>
+        <p class="text-muted">Navegación por pestañas interactiva con diseño totalmente adaptable.</p>
+      </div>
+
+      <!-- Navegación de Pills responsive -->
+      <ul class="nav nav-pills flex-column flex-sm-row mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item flex-sm-fill text-sm-center">
+          <a class="nav-link active" id="pills-envios-tab" data-toggle="pill" href="#pills-envios" role="tab" aria-controls="pills-envios" aria-selected="true">
+            <span class="oi oi-map-marker mr-1"></span> Cobertura de Envíos
+          </a>
+        </li>
+        <li class="nav-item flex-sm-fill text-sm-center">
+          <a class="nav-link" id="pills-garantia-tab" data-toggle="pill" href="#pills-garantia" role="tab" aria-controls="pills-garantia" aria-selected="false">
+            <span class="oi oi-shield mr-1"></span> Política de Garantía
+          </a>
+        </li>
+        <li class="nav-item flex-sm-fill text-sm-center">
+          <a class="nav-link" id="pills-devoluciones-tab" data-toggle="pill" href="#pills-devoluciones" role="tab" aria-controls="pills-devoluciones" aria-selected="false">
+            <span class="oi oi-loop mr-1"></span> Cambios y Devoluciones
+          </a>
+        </li>
+      </ul>
+
+      <!-- Contenido de las pestañas -->
+      <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-envios" role="tabpanel" aria-labelledby="pills-envios-tab">
+          <h5 class="font-weight-bold text-dark">Logística y Tiempos de Entrega</h5>
+          <p class="text-muted">Trabajamos con servicios de courier de primera línea para garantizar que tus productos lleguen seguros e intactos.</p>
+          <ul>
+            <li><strong>Área Metropolitana:</strong> Entrega en el mismo día para compras realizadas antes de las 13:00 hs.</li>
+            <li><strong>Interior del País:</strong> Despacho prioritario en 24 a 48 horas hábiles con código de seguimiento en vivo.</li>
+            <li><strong>Retiro en sucursal:</strong> Sin costo adicional en cualquiera de nuestros centros de distribución.</li>
+          </ul>
+        </div>
+        <div class="tab-pane fade" id="pills-garantia" role="tabpanel" aria-labelledby="pills-garantia-tab">
+          <h5 class="font-weight-bold text-dark">Respaldo Oficial de Fábrica</h5>
+          <p class="text-muted">Todos los artículos comercializados por Tech Express cuentan con garantía oficial directa del fabricante.</p>
+          <ul>
+            <li>12 a 24 meses de cobertura integral contra defectos de fabricación.</li>
+            <li>Soporte técnico directo vía remota o presencial en centros autorizados.</li>
+            <li>Reemplazo directo de unidad dentro de los primeros 30 días de compra.</li>
+          </ul>
+        </div>
+        <div class="tab-pane fade" id="pills-devoluciones" role="tabpanel" aria-labelledby="pills-devoluciones-tab">
+          <h5 class="font-weight-bold text-dark">Garantía de Satisfacción 100%</h5>
+          <p class="text-muted">Si el producto recibido no cumple con tus expectativas, podés gestionar tu cambio sin complicaciones.</p>
+          <ul>
+            <li>Hasta 15 días corridos desde la recepción para solicitar la devolución o cambio.</li>
+            <li>El producto debe conservar embalaje original, etiquetas y todos sus accesorios.</li>
+            <li>El reintegro del dinero se procesa por el mismo medio de pago utilizado.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Componente COLLAPSE y MULTI-COLLAPSE -->
+    <section id="collapseSection" class="mb-5">
+      <div class="mb-3">
+        <h3 class="h4 font-weight-bold"><span class="oi oi-layers mr-2 text-primary"></span> Secciones Desplegables (Collapse & Multi-Collapse)</h3>
+        <p class="text-muted">Demostración del control de visibilidad dinámica con un solo elemento y múltiples elementos simultáneos.</p>
+      </div>
+
+      <div class="mb-3">
+        <!-- Disparador para Collapse 1 -->
+        <a class="btn btn-outline-primary mr-2 mb-2" data-toggle="collapse" href="#multiCollapse1" role="button" aria-expanded="false" aria-controls="multiCollapse1">
+          <span class="oi oi-eye mr-1"></span> Desplegar Términos de Servicio
+        </a>
+        <!-- Disparador para Collapse 2 -->
+        <button class="btn btn-outline-secondary mr-2 mb-2" type="button" data-toggle="collapse" data-target="#multiCollapse2" aria-expanded="false" aria-controls="multiCollapse2">
+          <span class="oi oi-eye mr-1"></span> Desplegar Preguntas Frecuentes
+        </button>
+        <!-- Disparador MULTI-COLLAPSE (Alterna ambos a la vez) -->
+        <button class="btn btn-info mb-2" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapse1 multiCollapse2">
+          <span class="oi oi-transfer mr-1"></span> Alternar Ambos a la Vez (Multi-Collapse)
+        </button>
+      </div>
+
+      <div class="row">
+        <div class="col-12 col-md-6 mb-3">
+          <div class="collapse multi-collapse" id="multiCollapse1">
+            <div class="card card-body collapse-card">
+              <h5 class="font-weight-bold text-dark">Términos del Servicio Técnico</h5>
+              <p class="text-muted mb-0">Todas las reparaciones o revisiones bajo garantía se registran con un número de ticket único para consulta en línea en cualquier momento.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 mb-3">
+          <div class="collapse multi-collapse" id="multiCollapse2">
+            <div class="card card-body collapse-card">
+              <h5 class="font-weight-bold text-dark">¿Cómo emitimos factura?</h5>
+              <p class="text-muted mb-0">Emitimos Factura A para personas jurídicas y responsables inscriptos, y Factura B para consumidores finales automáticamente con tus datos de registro.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Componente ACCORDION para Medios de Pago -->
+    <section class="mb-5">
+      <div class="mb-3">
+        <h3 class="h4 font-weight-bold"><span class="oi oi-credit-card mr-2 text-primary"></span> Medios de Pago y Financiación (Accordion)</h3>
+        <p class="text-muted">Acordeón interactivo donde solo un panel permanece desplegado a la vez gracias a <code>data-parent</code>.</p>
+      </div>
+
+      <div class="accordion" id="accordionPagos">
+
+        <!-- Acordeón Ítem 1 -->
+        <div class="card">
+          <div class="card-header" id="headingTarjetaCredito">
+            <h2 class="mb-0">
+              <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseTarjetaCredito" aria-expanded="true" aria-controls="collapseTarjetaCredito">
+                <span><span class="oi oi-credit-card mr-2 text-primary"></span> Tarjetas de Crédito (Hasta 12 Cuotas)</span>
+                <span class="oi oi-chevron-bottom text-muted"></span>
+              </button>
+            </h2>
+          </div>
+          <div id="collapseTarjetaCredito" class="collapse show" aria-labelledby="headingTarjetaCredito" data-parent="#accordionPagos">
+            <div class="card-body text-muted">
+              Aceptamos Visa, Mastercard, American Express y Cabal de todos los bancos. Promociones especiales de 3 y 6 cuotas fijas sin interés en productos seleccionados del catálogo.
+            </div>
+          </div>
+        </div>
+
+        <!-- Acordeón Ítem 2 -->
+        <div class="card">
+          <div class="card-header" id="headingDebitoTransferencia">
+            <h2 class="mb-0">
+              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseDebitoTransferencia" aria-expanded="false" aria-controls="collapseDebitoTransferencia">
+                <span><span class="oi oi-dollar mr-2 text-success"></span> Transferencia Bancaria y Débito (15% OFF)</span>
+                <span class="oi oi-chevron-bottom text-muted"></span>
+              </button>
+            </h2>
+          </div>
+          <div id="collapseDebitoTransferencia" class="collapse" aria-labelledby="headingDebitoTransferencia" data-parent="#accordionPagos">
+            <div class="card-body text-muted">
+              Obtené un descuento directo del 15% pagando mediante transferencia bancaria o tarjeta de débito en un solo pago. La acreditación es inmediata con envío del comprobante digital.
+            </div>
+          </div>
+        </div>
+
+        <!-- Acordeón Ítem 3 -->
+        <div class="card">
+          <div class="card-header" id="headingBilleteras">
+            <h2 class="mb-0">
+              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseBilleteras" aria-expanded="false" aria-controls="collapseBilleteras">
+                <span><span class="oi oi-phone mr-2 text-info"></span> Billeteras Virtuales (Mercado Pago / Ualá)</span>
+                <span class="oi oi-chevron-bottom text-muted"></span>
+              </button>
+            </h2>
+          </div>
+          <div id="collapseBilleteras" class="collapse" aria-labelledby="headingBilleteras" data-parent="#accordionPagos">
+            <div class="card-body text-muted">
+              Pagá cómodamente escaneando nuestro código QR o con saldo en cuenta de Mercado Pago o Ualá, con acreditación al instante y seguridad en la transacción.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 6. Componente MODAL al final del body con formulario de registro y botón de cierre -->
+  <div class="modal fade" id="registroModal" tabindex="-1" role="dialog" aria-labelledby="registroModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        
+        <div class="modal-header bg-dark text-white">
+          <h5 class="modal-title font-weight-bold" id="registroModalLabel">
+            <span class="oi oi-person mr-2 text-info"></span> Registro de Usuario & Beneficios
+          </h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <!-- Formulario dentro del cuerpo del modal (requerido) -->
+        <form id="formRegistroModal">
+          <div class="modal-body">
+            <p class="text-muted small mb-3">Creá tu cuenta para obtener cupones de descuento exclusivos, guardar tus direcciones y seguir tus pedidos en tiempo real.</p>
+
+            <div class="form-group">
+              <label for="modalNombre" class="font-weight-bold text-dark">Nombre y Apellido</label>
+              <input type="text" class="form-control" id="modalNombre" placeholder="Ej: Kevin Rodríguez" required>
+            </div>
+
+            <div class="form-group">
+              <label for="modalEmail" class="font-weight-bold text-dark">Correo Electrónico</label>
+              <input type="email" class="form-control" id="modalEmail" placeholder="usuario@correo.com" required>
+            </div>
+
+            <div class="form-group">
+              <label for="modalPassword" class="font-weight-bold text-dark">Contraseña</label>
+              <input type="password" class="form-control" id="modalPassword" placeholder="Mínimo 8 caracteres" required minlength="8">
+            </div>
+
+            <div class="form-group">
+              <label for="modalInteres" class="font-weight-bold text-dark">Categoría de Mayor Interés</label>
+              <select class="form-control" id="modalInteres" required>
+                <option value="notebooks" selected>Notebooks y Laptops Pro</option>
+                <option value="monitores">Monitores y Pantallas 4K</option>
+                <option value="perifericos">Teclados y Mouses Mecánicos</option>
+                <option value="audio">Audio y Auriculares ANC</option>
+              </select>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="modalSuscripcion" checked>
+              <label class="form-check-label small text-muted" for="modalSuscripcion">
+                Deseo recibir el boletín semanal con ofertas flash y novedades tecnológicas.
+              </label>
+            </div>
+          </div>
+
+          <div class="modal-footer bg-light">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">
+              <span class="oi oi-circle-check mr-1"></span> Completar Registro
+            </button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer con alineaciones requeridas (izquierda, centro, derecha) y etiqueta <address> -->
+  <footer class="footer py-4 mt-5">
+    <div class="container">
+      <div class="row align-items-center">
+
+        <div class="col-12 col-md-4 text-left mb-3 mb-md-0">
+          <h5><span class="oi oi-map-marker mr-1 text-info"></span> Contacto Comercial</h5>
+          <address class="mb-0">
+            <strong>Tienda Tech Express S.A.</strong><br>
+            Av. Libertador 4500, Piso 5<br>
+            Buenos Aires, Argentina<br>
+            <abbr title="Teléfono">Tel:</abbr> +54 11 5555-8888<br>
+            <a href="mailto:soporte@techexpress.com">soporte@techexpress.com</a>
+          </address>
+        </div>
+
+        <div class="col-12 col-md-4 text-center mb-3 mb-md-0">
+          <h5>Redes y Comunidad</h5>
+          <p class="mb-2 text-muted">Seguinos en nuestras plataformas:</p>
+          <div>
+            <a href="https://facebook.com" class="mx-2" target="_blank" rel="noopener"><span class="oi oi-globe mr-1"></span> Facebook</a>
+            <a href="https://instagram.com" class="mx-2" target="_blank" rel="noopener"><span class="oi oi-camera-slr mr-1"></span> Instagram</a>
+            <a href="https://linkedin.com" class="mx-2" target="_blank" rel="noopener"><span class="oi oi-briefcase mr-1"></span> LinkedIn</a>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4 text-right">
+          <h5>Sobre el Sitio</h5>
+          <p class="mb-1">Proyecto Práctico - Módulo 3</p>
+          <small class="text-muted">&copy; 2026 Tienda Tech Express. Todos los derechos reservados.</small>
+        </div>
+
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts JS requeridos: jQuery primero, luego Popper.js, luego Bootstrap.js y script propio -->
+  <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
+  <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+  <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

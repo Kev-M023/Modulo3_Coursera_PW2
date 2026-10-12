@@ -1,0 +1,29 @@
+{
+  "name": "modulo-3",
+  "version": "1.0.0",
+  "description": "Proyecto Modulo 3 - Componentes Javascript de Bootstrap",
+  "main": "index.html",
+  "scripts": {
+    "dev": "lite-server",
+    "start": "npm run dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "bootstrap4",
+    "javascript",
+    "carousel",
+    "modal",
+    "lite-server"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^4.6.2",
+    "jquery": "^3.5.1",
+    "open-iconic": "^1.1.1",
+    "popper.js": "^1.16.1"
+  },
+  "devDependencies": {
+    "lite-server": "^2.6.1"
+  }
+}
